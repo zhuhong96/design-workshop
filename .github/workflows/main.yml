@@ -1,4 +1,0 @@
- # 推送到指定分支时运行
- push:
-    branches: ['main']
-
