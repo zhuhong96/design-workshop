@@ -4,8 +4,9 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <div>
-    <span style="color: pink;">短时可获得集卡社</span>
-    <span style="#000">45646</span>
+    <div style="color: pink;">
+      成功了
+    </div>
     <a href="https://vite.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
