@@ -22,7 +22,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: resolve(__dirname, 'docs'), // 指定输出路径
+    outDir: resolve(__dirname, 'dist'), // 指定输出路径
     chunkSizeWarningLimit: 1500,
     sourcemap: false, // 是否生成 source map
     emptyOutDir: true, //Vite 会在构建时清空该目录
