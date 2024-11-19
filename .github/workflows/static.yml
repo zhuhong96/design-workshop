@@ -1,24 +1,43 @@
-name: GitHub Actions Build and Deploy Demo        # 大标题
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
 on:
+  # Runs on pushes targeting the default branch
   push:
-    branches:
-      - main                                   # 监听哪个分支的哪个动作
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: write                                # 设置权限，可写，也可以不用配置，v4版本新增的
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  build-and-deploy:                              # 其中一个任务的名称，ID
-    runs-on: ubuntu-latest                       # 这个任务运行所需的环境
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️                        # 第一步：获取源码
-        uses: actions/checkout@v3                # 使用的工具
-
-      - name: Install and Build 🔧               # 第二步：下载依赖和构建
-        run: |
-          yarn install
-          yarn build
-
-      - name: Deploy 🚀                         # 第三步：部署
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: dist                         # 部署的目录
-          branch: gh-pages                     # 部署到哪个分支
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
