@@ -1,8 +1,20 @@
 <script setup lang='ts'>
-import { App, Rect, Text, Canvas, Line, RenderEvent } from "leafer-ui";
+import {
+  App,
+  Rect,
+  Text,
+  Canvas,
+  Line,
+  RenderEvent,
+  Leafer,
+  Frame,
+  Ellipse,
+  Box,
+} from "leafer-ui";
 import "@leafer-in/editor";
 import { Ruler } from "../src/core";
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import { fabric } from "fabric";
 // import { Canvas, Line } from '@leafer-ui/core'
 
 let app;
@@ -19,9 +31,10 @@ function getRandomColor() {
 }
 let timer = null;
 const fps = ref(0);
+// https://github.com/LvHuaiSheng/leafer-x-ruler
 onMounted(() => {
   app = new App({
-    view: "canvasRef",
+    view: "canvas",
     ground: { type: "draw" },
     tree: {},
     editor: {},
@@ -36,24 +49,63 @@ onMounted(() => {
     highlightColor: "rgba(22,93,255,0.75)",
   });
 
-  for (let i = 0; i < 5; i++) {
-    const randomNumber = Math.random() * (300 - 50) + 50;
-    const rect = new Rect({
-      x: randomNumber,
-      y: randomNumber,
-      width: randomNumber,
-      height: randomNumber,
-      fill: getRandomColor(),
-      editable: true,
-    });
-    app.tree.add(rect);
-  }
+  const leafer = new Leafer({ view: 'canvasRef', fill: 'gray' })
+
+  const box = new Box({
+    width: 100,
+    height: 100,
+    fill: '#FF4B4B',
+    editable: true,
+    x: 30,
+      y: 60,
+})
+
+  const frame = new Frame({
+    width: 100,
+    height: 100,
+    overflow: 'hide'
+  });
+
+  const rect = new Ellipse({
+    x: 60,
+    y: 60,
+    width: 50,
+    height: 50,
+    fill: "#32cd79",
+    draggable: true,
+  });
+
+  // app.tree.add(frame);
+  app.tree.add(box);
+  // frame.add(rect);
+
+  // for (let i = 0; i < 5; i++) {
+  //   const randomNumber = Math.random() * (300 - 50) + 50;
+  //   const rect = new Rect({
+  //     x: randomNumber,
+  //     y: randomNumber,
+  //     width: randomNumber,
+  //     height: randomNumber,
+  //     fill: getRandomColor(),
+  //     editable: true,
+  //   });
+  //   app.tree.add(rect);
+  // }
   // timer = setInterval(() => {
   //   fps.value = app.FPS
   // },500)
+
+  let width = 800;
+  let height = 500;
+
+  // const canvas = new fabric.Canvas("canvas", {
+  //   width: width,
+  //   height: height,
+  //   backgroundColor: "pink",
+  // });
 });
 onUnmounted(() => {
-  clearInterval(timer);
+  // clearInterval(timer);
 });
 
 /**
@@ -81,7 +133,10 @@ const changeEnabled = () => {
         <span>FPS：{{ fps }}</span>
       </div>
     </div>
-    <div ref="canvasRef" id="canvasRef"></div>
+    <div id="canvasWrap">
+      <div id="canvasRef"></div>
+      <canvas id="canvas"></canvas>
+    </div>
   </div>
 </template>
 
@@ -98,14 +153,35 @@ const changeEnabled = () => {
   /* justify-content: center; 横向居中 */
 }
 
+#canvasWrap {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  padding: 20px;
+}
+
+#canvasRef {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 800px;
+  height: 500px;
+}
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .btn-box > :nth-child(n + 2) {
   margin-left: 10px;
 }
 
-#canvasRef {
+/* #canvas {
   width: 100%;
   height: calc(100% - 30px);
-}
+} */
 </style>
 
 <!-- <script setup lang="ts">
