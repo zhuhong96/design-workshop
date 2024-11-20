@@ -14,7 +14,6 @@ import {
 import "@leafer-in/editor";
 import { Ruler } from "../src/core";
 import { computed, onMounted, onUnmounted, ref } from "vue";
-import { fabric } from "fabric";
 // import { Canvas, Line } from '@leafer-ui/core'
 
 let app;
@@ -38,7 +37,10 @@ onMounted(() => {
     view: "canvas",
     ground: { type: "draw" },
     tree: {},
-    editor: {},
+    editor: {
+      // lockRatio: true,
+      // resizeable: false
+    },
     sky: { type: "draw", usePartRender: false },
   });
   ruler = new Ruler(app);
@@ -56,15 +58,17 @@ onMounted(() => {
     width: 100,
     height: 100,
     fill: '#FF4B4B',
-    editable: true,
+    editable: false,
     x: 30,
-      y: 60,
-})
+    y: 60,
+  })
 
   const frame = new Frame({
-    width: 100,
-    height: 100,
-    overflow: 'hide'
+    width: 600,
+    height: 400,
+    // overflow: 'hide',
+    editable: false,
+    lockRatio: true,
   });
 
   const rect = new Ellipse({
@@ -73,12 +77,12 @@ onMounted(() => {
     width: 50,
     height: 50,
     fill: "#32cd79",
-    draggable: true,
+    editable: true,
   });
 
-  // app.tree.add(frame);
-  app.tree.add(box);
-  // frame.add(rect);
+  app.tree.add(frame);
+  // app.tree.add(box);
+  frame.add(rect);
 
   // for (let i = 0; i < 5; i++) {
   //   const randomNumber = Math.random() * (300 - 50) + 50;
@@ -175,7 +179,7 @@ const changeEnabled = () => {
   left: 0;
 }
 
-.btn-box > :nth-child(n + 2) {
+.btn-box> :nth-child(n + 2) {
   margin-left: 10px;
 }
 

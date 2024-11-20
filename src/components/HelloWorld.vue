@@ -1,6 +1,6 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { fabric } from "fabric";
+// import { fabric } from "fabric";
 // import {useResizeObserver} from "@vueuse/core";
 
 // useResizeObserver('',()=>{
@@ -771,4 +771,4 @@ body {
   left: 0;
   top: 0;
 }
-</style>
+</style> -->
