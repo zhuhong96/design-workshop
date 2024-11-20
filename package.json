@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "fabric": "^5.3.0",
     "vue": "^3.5.12"
   },
   "devDependencies": {
