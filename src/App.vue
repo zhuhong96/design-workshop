@@ -32,6 +32,7 @@ function getRandomColor() {
 let timer = null;
 const fps = ref(0);
 // https://github.com/LvHuaiSheng/leafer-x-ruler
+// https://www.leaferjs.com/
 onMounted(() => {
   app = new App({
     view: "canvas",
