@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@leafer-in/editor": "^1.0.9",
     "fabric": "^5.3.0",
+    "leafer-ui": "^1.0.9",
     "vue": "^3.5.12"
   },
   "devDependencies": {
