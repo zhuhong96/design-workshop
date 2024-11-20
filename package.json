@@ -11,6 +11,7 @@
   "dependencies": {
     "@leafer-in/editor": "^1.0.9",
     "leafer-ui": "^1.0.9",
+    "leafer-x-ruler": "^1.0.14",
     "vue": "^3.5.12"
   },
   "devDependencies": {

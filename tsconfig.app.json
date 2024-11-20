@@ -17,12 +17,15 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false, /* 检查未使用的变量 */
+    "noUnusedParameters": false, /* 检查未使用的函数参数 */
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".", //查询的基础路径
     "paths": { "@/*": ["src/*"] }, //路径映射,配合别名使用
+    /**
+    * 新增
+    */
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }

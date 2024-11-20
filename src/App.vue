@@ -12,12 +12,12 @@ import {
   Box,
 } from "leafer-ui";
 import "@leafer-in/editor";
-import { Ruler } from "../src/core";
+import { Ruler } from 'leafer-x-ruler';
 import { computed, onMounted, onUnmounted, ref } from "vue";
 // import { Canvas, Line } from '@leafer-ui/core'
 
 let app;
-let ruler;
+let ruler:any;
 
 // 生成随机颜色
 function getRandomColor() {
@@ -117,7 +117,7 @@ onUnmounted(() => {
  * 设置辅助线主题
  * @param theme
  */
-const changeTheme = (theme) => {
+const changeTheme = (theme:any) => {
   ruler.changeTheme(theme);
 };
 const changeEnabled = () => {
