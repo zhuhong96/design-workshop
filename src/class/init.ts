@@ -1,14 +1,15 @@
-import { App, Frame, Ellipse, Box } from 'leafer-ui';
+// import { App, Frame, Ellipse, Box } from 'leafer-ui';
+import { App } from 'leafer-ui';
 import '@leafer-in/editor';
 import { Ruler } from 'leafer-x-ruler';
 // import { onMounted, ref } from 'vue';
 
 class Init {
   private app: App;
-  private frame: Frame;
   private ruler: Ruler;
-  private box: Box;
-  private ellipse: Ellipse;
+  // private frame: Frame;
+  // private box: Box;
+  // private ellipse: Ellipse;
 
   constructor(canvas: string | HTMLCanvasElement) {
     this.app = new App({
