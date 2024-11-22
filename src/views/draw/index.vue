@@ -92,7 +92,7 @@ onUnmounted(() => {
 
 <template>
   <div id="content" class="draw">
-    <div class="draw-sidebar">456</div>
+    <div class="draw-sidebar">456++</div>
     <div class="draw-box">
       <div class="draw-header">456</div>
       <div class="layout-content">

@@ -5,7 +5,7 @@ import path, { resolve } from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/vue-fabric/',
+  base: './',
   resolve: {
     alias: {
       '@': path.resolve('./src'), // 设置别名
