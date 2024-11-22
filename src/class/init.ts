@@ -2,7 +2,7 @@
 import { App } from 'leafer-ui';
 import '@leafer-in/editor';
 import { Ruler } from 'leafer-x-ruler';
-// import { onMounted, ref } from 'vue';
+import useWorkspace from '@/hooks/useworkspace';
 
 class Init {
   private app: App;
@@ -28,6 +28,8 @@ class Init {
       borderColor: '#6f4593',
       highlightColor: 'rgba(22,93,255,0.75)',
     });
+
+    useWorkspace().workspaceInit(this.app);
 
     // this.ruler.changeTheme('dark');
   }
