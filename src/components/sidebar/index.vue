@@ -2,15 +2,29 @@
   <div class="sidebar">
     <div class="sidebar-login">
       <pencilLoading />
+      <!-- <jy-icon size="36" type="tupian"></jy-icon> -->
     </div>
     <div class="sidebar-box">
       <div v-for="(item, index) in sidebarList" :key="index" class="sidebar-box-list">
-        <!-- <img
+        <img v-if="item.value === 'text'" src="@/assets/sidebar/icon-wenzi.png" class="sidebar-box-list-img" alt="JY" />
+        <img
+          v-if="item.value === 'element'"
+          src="@/assets/sidebar/icon-yuansu-lengxing.png"
           class="sidebar-box-list-img"
-          src="https://ts1.cn.mm.bing.net/th/id/R-C.a60ec11ec3652480060d44cb4cc08358?rik=B7v9eGWD68F1OA&riu=http%3a%2f%2fpic.616pic.com%2fys_bnew_img%2f00%2f21%2f11%2fZ2HX8XOP1N.jpg&ehk=qxn5WB0Z1KYULzmbU9NeYy%2fGvcPYPYcSomU5utOpucA%3d&risl=&pid=ImgRaw&r=0"
-          alt=""
-        /> -->
-        <i class="iconfont icon-tupian"></i>
+          alt="JY"
+        />
+        <img
+          v-if="item.value === 'image'"
+          src="@/assets/sidebar/icon-tupian.png"
+          class="sidebar-box-list-img"
+          alt="JY"
+        />
+        <img
+          v-if="item.value === 'background'"
+          src="@/assets/sidebar/icon-a-celanicon.png"
+          class="sidebar-box-list-img"
+          alt="JY"
+        />
         <span>{{ item.title }} </span>
       </div>
     </div>
@@ -24,22 +38,22 @@ import pencilLoading from '@/components/uiverse/pencil-loading.vue';
 const sidebarList = ref([
   {
     title: '文字',
-    icon: '',
+    value: 'text',
     path: '',
   },
   {
     title: '元素',
-    icon: '',
+    value: 'element',
     path: '',
   },
   {
     title: '图片',
-    icon: '',
+    value: 'image',
     path: '',
   },
   {
     title: '背景',
-    icon: '',
+    value: 'background',
     path: '',
   },
 ]);
@@ -58,6 +72,8 @@ const sidebarList = ref([
   }
 
   .sidebar-box {
+    padding: 16px 0 0;
+
     .sidebar-box-list {
       width: 100%;
       height: 60px;
@@ -66,12 +82,17 @@ const sidebarList = ref([
       align-items: center;
       justify-content: center;
       font-size: 15px;
-      color: #fff;
+      // color: #fff;
       cursor: pointer;
+      gap: 2px;
 
       .sidebar-box-list-img {
         width: 30px;
         height: 30px;
+      }
+
+      & > span {
+        font-size: 14px;
       }
     }
   }
