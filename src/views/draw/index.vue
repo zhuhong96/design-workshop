@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import '@leafer-in/editor';
 import { onMounted, ref, onUnmounted } from 'vue';
-// import { Canvas, Line } from '@leafer-ui/core'
+import sidebar from '@/components/sidebar/index.vue';
 import InitDraw from '@/class/init';
 import { debounce } from 'lodash';
 import elementResizeDetectorMaker from 'element-resize-detector';
@@ -32,7 +32,8 @@ onUnmounted(() => {
 <template>
   <div id="content" class="draw">
     <div class="draw-sidebar">
-      <img src="@/images/logo.png" alt="JiYun" style="width: 42px; border-radius: 42px" />
+      <sidebar />
+      <!-- <img src="@/images/logo.png" alt="JiYun" style="width: 42px; border-radius: 42px" /> -->
     </div>
     <div class="draw-box">
       <div class="draw-header">456</div>
