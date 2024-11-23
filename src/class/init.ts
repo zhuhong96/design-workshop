@@ -4,9 +4,12 @@ import '@leafer-in/editor';
 import { Ruler } from 'leafer-x-ruler';
 import useWorkspace from '@/hooks/useworkspace';
 
+const useWorkspaceFn = useWorkspace();
+
 class Init {
   private app: App;
   private ruler: Ruler;
+  workspace: any;
   // private frame: Frame;
   // private box: Box;
 
@@ -50,13 +53,18 @@ class Init {
     //   theme: 'light',
     // });
 
-    useWorkspace().workspaceInit(this.app);
+    useWorkspaceFn.workspaceInit(this.app);
 
     // this.ruler.changeTheme('dark');
   }
 
   getApp() {
     return this.app;
+  }
+
+  // 获取画布
+  getWorkspace() {
+    return useWorkspaceFn.workspace.value;
   }
 }
 

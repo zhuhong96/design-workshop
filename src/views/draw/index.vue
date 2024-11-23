@@ -10,16 +10,18 @@ const erd = elementResizeDetectorMaker();
 // https://github.com/LvHuaiSheng/leafer-x-ruler
 // https://www.leaferjs.com/
 
+const initDraw = ref<any>(null);
+
 onMounted(() => {
-  const initDraw = new InitDraw('canvas');
+  initDraw.value = new InitDraw('canvas');
 
   const onResize = debounce((width: number, height: number) => {
-    initDraw.getApp().app.resize({ width: width - 60, height: height - 60 });
+    initDraw.value.getApp().app.resize({ width: width - 60 - 60, height: height - 60 });
   }, 100);
 
   erd.listenTo(document.getElementById('content'), function (element: { offsetWidth: number; offsetHeight: number }) {
-    var width = element.offsetWidth;
-    var height = element.offsetHeight;
+    const width = element.offsetWidth;
+    const height = element.offsetHeight;
     onResize(width, height);
   });
 });
@@ -32,12 +34,13 @@ onUnmounted(() => {
 <template>
   <div id="content" class="draw">
     <div class="draw-sidebar">
-      <sidebar />
+      <sidebar v-if="initDraw?.getWorkspace()" :workspace="initDraw?.getWorkspace()" />
       <!-- <img src="@/images/logo.png" alt="JiYun" style="width: 42px; border-radius: 42px" /> -->
     </div>
     <div class="draw-box">
       <div class="draw-header">456</div>
       <div class="layout-content">
+        <!-- <div style="width: 60px">9666</div> -->
         <div id="canvas" ref="canvasRef"></div>
       </div>
     </div>
@@ -65,16 +68,17 @@ onUnmounted(() => {
     }
 
     .layout-content {
+      display: flex;
       height: calc(100% - 60px);
+
+      #canvas {
+        flex: 1;
+        height: 100%;
+        // background-color: rgba(0, 0, 0, 0.5);
+        background-color: #16161c;
+      }
     }
   }
-}
-
-#canvas {
-  width: 100%;
-  height: 100%;
-  // background-color: rgba(0, 0, 0, 0.5);
-  background-color: #16161c;
 }
 
 .btn-box > :nth-child(n + 2) {

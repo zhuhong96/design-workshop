@@ -5,7 +5,12 @@
       <!-- <jy-icon size="36" type="tupian"></jy-icon> -->
     </div>
     <div class="sidebar-box">
-      <div v-for="(item, index) in sidebarList" :key="index" class="sidebar-box-list">
+      <div
+        v-for="(item, index) in sidebarList"
+        :key="index"
+        class="sidebar-box-list"
+        @click="onSidebarClick(item.value)"
+      >
         <img v-if="item.value === 'text'" src="@/assets/sidebar/icon-wenzi.png" class="sidebar-box-list-img" alt="JY" />
         <img
           v-if="item.value === 'element'"
@@ -33,7 +38,32 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { IFrame } from '@leafer-ui/interface';
+import useSidebar from '@/hooks/usesidebar';
 import pencilLoading from '@/components/uiverse/pencil-loading.vue';
+
+const props = defineProps({
+  workspace: {
+    type: Object as () => IFrame,
+    default: () => {},
+  },
+});
+// 注册
+const useSidebarFn = useSidebar(props.workspace);
+
+const onSidebarClick = (type: string) => {
+  switch (type) {
+    case 'text':
+      useSidebarFn.createText();
+      break;
+    case 'element':
+      useSidebarFn.createRect();
+      break;
+
+    default:
+      break;
+  }
+};
 
 const sidebarList = ref([
   {
