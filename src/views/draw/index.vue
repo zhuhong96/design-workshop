@@ -2,6 +2,8 @@
 import '@leafer-in/editor';
 import { onMounted, ref, onUnmounted } from 'vue';
 import sidebar from '@/components/sidebar/index.vue';
+import characters from '../common/characters.vue';
+import navigation from '@/components/navigation/index.vue';
 import InitDraw from '@/class/init';
 import { debounce } from 'lodash';
 import elementResizeDetectorMaker from 'element-resize-detector';
@@ -12,13 +14,13 @@ const erd = elementResizeDetectorMaker();
 
 const initDraw = ref<any>(null);
 // 侧边栏选中字段
-const sidebarSelect = ref<string>('element');
+const sidebarSelect = ref<string>('text');
 
 onMounted(() => {
   initDraw.value = new InitDraw('canvas');
 
   const onResize = debounce((width: number, height: number) => {
-    initDraw.value.getApp().app.resize({ width: width - 60, height: height - 60 });
+    initDraw.value.getApp().app.resize({ width: width - 60 - 260, height: height - 60 });
   }, 100);
 
   erd.listenTo(document.getElementById('content'), function (element: { offsetWidth: number; offsetHeight: number }) {
@@ -40,9 +42,14 @@ onUnmounted(() => {
       <!-- <img src="@/images/logo.png" alt="JiYun" style="width: 42px; border-radius: 42px" /> -->
     </div>
     <div class="draw-box">
-      <div class="draw-header">456</div>
+      <div class="draw-header">
+        <navigation />
+      </div>
       <div class="layout-content">
         <!-- <div style="width: 60px">9666</div> -->
+        <div class="layout-content-sidebar">
+          <characters />
+        </div>
         <div id="canvas" ref="canvasRef"></div>
       </div>
     </div>
@@ -72,6 +79,10 @@ onUnmounted(() => {
     .layout-content {
       display: flex;
       height: calc(100% - 60px);
+
+      .layout-content-sidebar {
+        width: 260px;
+      }
 
       #canvas {
         flex: 1;

@@ -97,6 +97,8 @@ const sidebarList = ref([
 <style scoped lang="less">
 .sidebar {
   width: 100%;
+  height: 100%;
+  background-color: #16161a;
 
   .sidebar-login {
     display: flex;
