@@ -11,12 +11,14 @@ const erd = elementResizeDetectorMaker();
 // https://www.leaferjs.com/
 
 const initDraw = ref<any>(null);
+// 侧边栏选中字段
+const sidebarSelect = ref<string>('element');
 
 onMounted(() => {
   initDraw.value = new InitDraw('canvas');
 
   const onResize = debounce((width: number, height: number) => {
-    initDraw.value.getApp().app.resize({ width: width - 60 - 60, height: height - 60 });
+    initDraw.value.getApp().app.resize({ width: width - 60, height: height - 60 });
   }, 100);
 
   erd.listenTo(document.getElementById('content'), function (element: { offsetWidth: number; offsetHeight: number }) {
@@ -34,7 +36,7 @@ onUnmounted(() => {
 <template>
   <div id="content" class="draw">
     <div class="draw-sidebar">
-      <sidebar v-if="initDraw?.getWorkspace()" :workspace="initDraw?.getWorkspace()" />
+      <sidebar v-model="sidebarSelect" :workspace="initDraw?.getWorkspace()" />
       <!-- <img src="@/images/logo.png" alt="JiYun" style="width: 42px; border-radius: 42px" /> -->
     </div>
     <div class="draw-box">

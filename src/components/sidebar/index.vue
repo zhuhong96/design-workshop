@@ -8,28 +8,10 @@
       <div
         v-for="(item, index) in sidebarList"
         :key="index"
-        class="sidebar-box-list"
+        :class="['sidebar-box-list', modelValue === item.value ? 'sidebar-box-list-active' : '']"
         @click="onSidebarClick(item.value)"
       >
-        <img v-if="item.value === 'text'" src="@/assets/sidebar/icon-wenzi.png" class="sidebar-box-list-img" alt="JY" />
-        <img
-          v-if="item.value === 'element'"
-          src="@/assets/sidebar/icon-yuansu-lengxing.png"
-          class="sidebar-box-list-img"
-          alt="JY"
-        />
-        <img
-          v-if="item.value === 'image'"
-          src="@/assets/sidebar/icon-tupian.png"
-          class="sidebar-box-list-img"
-          alt="JY"
-        />
-        <img
-          v-if="item.value === 'background'"
-          src="@/assets/sidebar/icon-a-celanicon.png"
-          class="sidebar-box-list-img"
-          alt="JY"
-        />
+        <jy-icon size="24" :type="item.icon" :color="modelValue === item.value ? '#fff' : ''"></jy-icon>
         <span>{{ item.title }} </span>
       </div>
     </div>
@@ -37,27 +19,46 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { IFrame } from '@leafer-ui/interface';
 import useSidebar from '@/hooks/usesidebar';
 import pencilLoading from '@/components/uiverse/pencil-loading.vue';
 
 const props = defineProps({
+  modelValue: {
+    type: String,
+    default: () => 'text',
+  },
   workspace: {
     type: Object as () => IFrame,
     default: () => {},
   },
 });
+const emits = defineEmits(['update:modelValue']);
 // 注册
-const useSidebarFn = useSidebar(props.workspace);
+let useSidebarFn = useSidebar(props.workspace);
+
+// 监听
+watch(
+  () => props.workspace,
+  (newWorkspace: IFrame) => {
+    if (!newWorkspace) return;
+    useSidebarFn = useSidebar(newWorkspace);
+  },
+  { deep: true },
+);
 
 const onSidebarClick = (type: string) => {
+  emits('update:modelValue', type);
   switch (type) {
     case 'text':
       useSidebarFn.createText();
       break;
     case 'element':
       useSidebarFn.createRect();
+      break;
+    case 'image':
+      useSidebarFn.createImage();
       break;
 
     default:
@@ -69,21 +70,25 @@ const sidebarList = ref([
   {
     title: '文字',
     value: 'text',
+    icon: 'icon-wenzi1',
     path: '',
   },
   {
     title: '元素',
     value: 'element',
+    icon: 'icon-cryo',
     path: '',
   },
   {
     title: '图片',
     value: 'image',
+    icon: 'icon-tupian',
     path: '',
   },
   {
     title: '背景',
     value: 'background',
+    icon: 'icon-beijing',
     path: '',
   },
 ]);
@@ -111,19 +116,17 @@ const sidebarList = ref([
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      // color: #fff;
+      color: #8b8b8b;
       cursor: pointer;
-      gap: 2px;
-
-      .sidebar-box-list-img {
-        width: 30px;
-        height: 30px;
-      }
+      gap: 4px;
 
       & > span {
-        font-size: 14px;
+        font-size: 13px;
       }
+    }
+
+    .sidebar-box-list-active {
+      color: #fff;
     }
   }
 }

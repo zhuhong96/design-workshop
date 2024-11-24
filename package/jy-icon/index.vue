@@ -4,6 +4,7 @@
       :class="['iconfont', computedType]"
       :style="{
         fontSize: computedSize,
+        color,
       }"
     ></span>
   </div>
