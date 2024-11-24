@@ -1,5 +1,8 @@
-# Vue 3 + TypeScript + Vite
+# 简介
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+吉云设计是一款个人开源的图片设计工具，主要技术栈是vue3、typescript、vite、leaferjs、less等主流技术开发，开箱即用。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+# 项目预览
+
+- 地址：[吉云设计](https://zhuhong96.github.io/design-workshop/)
+
