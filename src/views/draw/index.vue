@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import '@leafer-in/editor';
-import { onMounted, ref, onUnmounted } from 'vue';
+import { onMounted, ref, onUnmounted, watch } from 'vue';
 import sidebar from '@/components/sidebar/index.vue';
 import characters from '../common/characters.vue';
 import navigation from '@/components/navigation/index.vue';
@@ -15,22 +15,45 @@ const erd = elementResizeDetectorMaker();
 const initDraw = ref<any>(null);
 // 侧边栏选中字段
 const sidebarSelect = ref<string>('text');
+// 是否展示侧边栏
+const showSidebar = ref<boolean>(true);
 
 onMounted(() => {
   initDraw.value = new InitDraw('canvas');
+  onResize();
+});
 
+watch(
+  () => showSidebar.value,
+  (newval) => {
+    const contentDom = document.getElementById('content') as HTMLElement;
+    if (!contentDom) return;
+    const clientWidth = contentDom.offsetWidth as number;
+    const clientHeight = contentDom.offsetHeight as number;
+    let width = clientWidth - 60;
+    const height = clientHeight - 60;
+    if (newval) width = width - 260;
+    initDraw.value.getApp().app.resize({
+      width,
+      height,
+    });
+  },
+);
+
+// 监听窗口变化
+const onResize = () => {
   const onResize = debounce((width: number, height: number) => {
     initDraw.value.getApp().app.resize({ width: width - 60 - 260, height: height - 60 });
   }, 100);
-
   erd.listenTo(document.getElementById('content'), function (element: { offsetWidth: number; offsetHeight: number }) {
     const width = element.offsetWidth;
     const height = element.offsetHeight;
     onResize(width, height);
   });
-});
+};
 
 onUnmounted(() => {
+  // 销毁实例
   erd.uninstall(document.getElementById('content'));
 });
 </script>
@@ -38,7 +61,7 @@ onUnmounted(() => {
 <template>
   <div id="content" class="draw">
     <div class="draw-sidebar">
-      <sidebar v-model="sidebarSelect" :workspace="initDraw?.getWorkspace()" />
+      <sidebar v-if="initDraw?.getWorkspace()" v-model="sidebarSelect" :workspace="initDraw?.getWorkspace()" />
       <!-- <img src="@/images/logo.png" alt="JiYun" style="width: 42px; border-radius: 42px" /> -->
     </div>
     <div class="draw-box">
@@ -46,17 +69,16 @@ onUnmounted(() => {
         <navigation />
       </div>
       <div class="layout-content">
-        <!-- <div style="width: 60px">9666</div> -->
         <div
           :class="[
             'layout-content-sidebar',
             {
-              'layout-content-sidebar-active': sidebarSelect !== 'text',
+              'layout-content-sidebar-active': !showSidebar,
             },
           ]"
         >
-          <jy-icon class="icon" type="icon-right"></jy-icon>
-          <characters :workspace="initDraw?.getWorkspace()" />
+          <jy-icon class="icon" type="icon-right" @click="showSidebar = !showSidebar"></jy-icon>
+          <characters v-if="initDraw?.getWorkspace()" :workspace="initDraw?.getWorkspace()" />
         </div>
         <div id="canvas" ref="canvasRef"></div>
       </div>

@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { IFrame } from '@leafer-ui/interface';
 import useSidebar from '@/hooks/usesidebar';
 import pencilLoading from '@/components/uiverse/pencil-loading.vue';
@@ -37,16 +37,6 @@ const props = defineProps({
 const emits = defineEmits(['update:modelValue']);
 // 注册
 let useSidebarFn = useSidebar(props.workspace);
-
-// 监听
-watch(
-  () => props.workspace,
-  (newWorkspace: IFrame) => {
-    if (!newWorkspace) return;
-    useSidebarFn = useSidebar(newWorkspace);
-  },
-  { deep: true },
-);
 
 const onSidebarClick = (type: string) => {
   emits('update:modelValue', type);

@@ -19,18 +19,6 @@ const props = defineProps({
 // 注册
 let useSidebarFn = useSidebar(props.workspace);
 
-// 监听
-watch(
-  () => props.workspace,
-  (newWorkspace: IFrame) => {
-    console.log('44555');
-
-    if (!newWorkspace) return;
-    useSidebarFn = useSidebar(newWorkspace);
-  },
-  { deep: true },
-);
-
 const onCharactersClick = () => {
   useSidebarFn?.createText();
 };
