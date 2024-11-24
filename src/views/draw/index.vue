@@ -47,7 +47,15 @@ onUnmounted(() => {
       </div>
       <div class="layout-content">
         <!-- <div style="width: 60px">9666</div> -->
-        <div class="layout-content-sidebar">
+        <div
+          :class="[
+            'layout-content-sidebar',
+            {
+              'layout-content-sidebar-active': sidebarSelect !== 'text',
+            },
+          ]"
+        >
+          <jy-icon class="icon" type="icon-right"></jy-icon>
           <characters />
         </div>
         <div id="canvas" ref="canvasRef"></div>
@@ -57,44 +65,5 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="less">
-.draw {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  background-color: #0a0b10;
-
-  .draw-sidebar {
-    width: 60px;
-  }
-
-  .draw-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-
-    .draw-header {
-      height: 60px;
-    }
-
-    .layout-content {
-      display: flex;
-      height: calc(100% - 60px);
-
-      .layout-content-sidebar {
-        width: 260px;
-      }
-
-      #canvas {
-        flex: 1;
-        height: 100%;
-        // background-color: rgba(0, 0, 0, 0.5);
-        background-color: #16161c;
-      }
-    }
-  }
-}
-
-.btn-box > :nth-child(n + 2) {
-  margin-left: 10px;
-}
+@import './index.less';
 </style>
