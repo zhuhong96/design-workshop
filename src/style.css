@@ -12,6 +12,15 @@ h1 {
   line-height: 1.1;
 }
 
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #747bff;
+}
+
 @media (prefers-color-scheme: light) {
   /* :root {
     color: #213547;

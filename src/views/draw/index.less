@@ -1,0 +1,61 @@
+.draw {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0a0b10;
+
+  .draw-sidebar {
+    width: 60px;
+  }
+
+  .draw-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .draw-header {
+      height: 60px;
+    }
+
+    .layout-content {
+      display: flex;
+      height: calc(100% - 60px);
+
+      .layout-content-sidebar {
+        position: relative;
+        width: 260px;
+        transition: all 0.5s;
+
+        .icon {
+          position: absolute;
+          right: -16px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          font-size: 20px;
+          width: 16px;
+          height: 60px;
+          border-radius: 0 6px 6px 0;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.8);
+          z-index: 99;
+        }
+      }
+
+      .layout-content-sidebar-active {
+        width: 0;
+      }
+
+      #canvas {
+        flex: 1;
+        height: 100%;
+        // background-color: rgba(0, 0, 0, 0.5);
+        background-color: #16161c;
+      }
+    }
+  }
+}
+
+.btn-box > :nth-child(n + 2) {
+  margin-left: 10px;
+}

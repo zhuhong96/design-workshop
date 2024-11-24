@@ -4,8 +4,10 @@
       :class="['iconfont', computedType]"
       :style="{
         fontSize: computedSize,
+        color,
       }"
     ></span>
+    <slot></slot>
   </div>
 </template>
 
@@ -46,4 +48,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.jy-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+</style>
