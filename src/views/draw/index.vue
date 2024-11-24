@@ -56,7 +56,7 @@ onUnmounted(() => {
           ]"
         >
           <jy-icon class="icon" type="icon-right"></jy-icon>
-          <characters />
+          <characters :workspace="initDraw?.getWorkspace()" />
         </div>
         <div id="canvas" ref="canvasRef"></div>
       </div>

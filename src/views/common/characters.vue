@@ -1,9 +1,60 @@
 <template>
-  <div>文字</div>
+  <div class="characters">
+    <div class="characters-list" @click="onCharactersClick">吉云设计</div>
+    <div class="characters-list">吉云设计</div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import useSidebar from '@/hooks/usesidebar';
+import { IFrame } from '@leafer-ui/interface';
+
+const props = defineProps({
+  workspace: {
+    type: Object as () => IFrame,
+    default: () => {},
+  },
+});
+// 注册
+let useSidebarFn = useSidebar(props.workspace);
+
+// 监听
+watch(
+  () => props.workspace,
+  (newWorkspace: IFrame) => {
+    console.log('44555');
+
+    if (!newWorkspace) return;
+    useSidebarFn = useSidebar(newWorkspace);
+  },
+  { deep: true },
+);
+
+const onCharactersClick = () => {
+  useSidebarFn?.createText();
+};
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.characters {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  width: calc(100% - 40px);
+  background-color: #0b0c13;
+
+  .characters-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    width: 100px;
+    height: 100px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #000000;
+  }
+}
+</style>

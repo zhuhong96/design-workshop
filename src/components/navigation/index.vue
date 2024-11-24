@@ -20,7 +20,7 @@
       </div>
       <div class="navigation-right">
         <div class="navigation-list button-style">导出</div>
-        <div class="navigation-list button-style">登录/注册</div>
+        <!-- <div class="navigation-list button-style">登录/注册</div> -->
       </div>
     </div>
   </div>
