@@ -40,20 +40,20 @@ let useSidebarFn = useSidebar(props.workspace);
 
 const onSidebarClick = (type: string) => {
   emits('update:modelValue', type);
-  switch (type) {
-    case 'text':
-      useSidebarFn.createText();
-      break;
-    case 'element':
-      useSidebarFn.createRect();
-      break;
-    case 'image':
-      useSidebarFn.createImage();
-      break;
+  // switch (type) {
+  //   case 'text':
+  //     useSidebarFn.createText();
+  //     break;
+  //   case 'element':
+  //     useSidebarFn.createRect();
+  //     break;
+  //   case 'image':
+  //     useSidebarFn.createImage();
+  //     break;
 
-    default:
-      break;
-  }
+  //   default:
+  //     break;
+  // }
 };
 
 const sidebarList = ref([
@@ -88,6 +88,7 @@ const sidebarList = ref([
 .sidebar {
   width: 100%;
   height: 100%;
+  z-index: 9;
   background-color: #16161a;
 
   .sidebar-login {
@@ -100,6 +101,8 @@ const sidebarList = ref([
 
   .sidebar-box {
     padding: 16px 0 0;
+    border-right: 1px solid #2c2c3a;
+    height: calc(100% - 76px);
 
     .sidebar-box-list {
       width: 100%;

@@ -27,10 +27,9 @@ const onCharactersClick = () => {
 <style scoped lang="less">
 .characters {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 20px 12px;
   padding: 20px;
-  width: calc(100% - 40px);
-  background-color: #0b0c13;
 
   .characters-list {
     display: flex;
@@ -42,7 +41,7 @@ const onCharactersClick = () => {
     font-size: 16px;
     cursor: pointer;
     color: #fff;
-    background-color: #000000;
+    background-color: #0a0b10;
   }
 }
 </style>

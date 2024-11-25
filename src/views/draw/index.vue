@@ -4,6 +4,7 @@ import { onMounted, ref, onUnmounted, watch } from 'vue';
 import sidebar from '@/components/sidebar/index.vue';
 import characters from '../common/characters.vue';
 import navigation from '@/components/navigation/index.vue';
+import element from '../common/element.vue';
 import InitDraw from '@/class/init';
 import { debounce } from 'lodash';
 import elementResizeDetectorMaker from 'element-resize-detector';
@@ -78,7 +79,14 @@ onUnmounted(() => {
           ]"
         >
           <jy-icon class="icon" type="icon-right" @click="showSidebar = !showSidebar"></jy-icon>
-          <characters v-if="initDraw?.getWorkspace()" :workspace="initDraw?.getWorkspace()" />
+          <characters
+            v-if="initDraw?.getWorkspace() && sidebarSelect === 'text'"
+            :workspace="initDraw?.getWorkspace()"
+          />
+          <element
+            v-if="initDraw?.getWorkspace() && sidebarSelect === 'element'"
+            :workspace="initDraw?.getWorkspace()"
+          />
         </div>
         <div id="canvas" ref="canvasRef"></div>
       </div>
