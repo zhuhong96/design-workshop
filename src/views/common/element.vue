@@ -27,6 +27,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import useSidebar from '@/hooks/usesidebar';
+import { IFrame } from '@leafer-ui/interface';
+
 const props = defineProps({
   workspace: {
     type: Object as () => IFrame,
