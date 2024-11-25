@@ -1,0 +1,68 @@
+.element {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 12px;
+  padding: 20px;
+
+  .element-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    // 文本禁止选中
+    user-select: none;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .element-rect {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255, 165, 0);
+  }
+
+  .element-rect-1 {
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    background-color: #ff4a2c;
+  }
+
+  .element-rect-2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 0 30px 20px 30px;
+    background-color: rgb(50, 205, 121);
+  }
+
+  .element-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #ff4a2c;
+  }
+
+  .element-circle-1 {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 10px solid rgb(50, 205, 121);
+  }
+
+  .element-line {
+    // 45度直线圆角
+    border-radius: 5px;
+    background-color: #feb027;
+    width: 45px;
+    height: 5px;
+    transform: rotate(45deg);
+  }
+
+  .element-m {
+    font-size: 45px;
+    color: #ff4a2c;
+  }
+}
