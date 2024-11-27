@@ -1,13 +1,13 @@
 <template>
   <div class="element">
     <div class="element-list">
-      <div class="element-rect"></div>
+      <div class="element-rect" @click="createRect('rect')"></div>
     </div>
     <div class="element-list">
-      <div class="element-rect-1"></div>
+      <div class="element-rect-1" @click="createRect('rectRound')"></div>
     </div>
     <div class="element-list">
-      <div class="element-rect-2"></div>
+      <div class="element-rect-2" @click="createRect('rectDiamond')"></div>
     </div>
     <div class="element-list">
       <div class="element-circle"></div>
@@ -28,6 +28,7 @@
 import { ref } from 'vue';
 import useSidebar from '@/hooks/usesidebar';
 import { IFrame } from '@leafer-ui/interface';
+const { createRect } = useSidebar();
 
 const props = defineProps({
   workspace: {
@@ -35,12 +36,6 @@ const props = defineProps({
     default: () => {},
   },
 });
-// 注册
-let useSidebarFn = useSidebar(props.workspace);
-
-const onCharactersClick = () => {
-  useSidebarFn?.createText();
-};
 </script>
 
 <style scoped lang="less">

@@ -1,16 +1,17 @@
 import { Text, Rect, Image } from 'leafer-ui';
+import rectAttribute, { IRectAttribute } from '@/attribute/rect';
+import { randomColor } from '@/utils/color';
 import useWorkspace from '@/hooks/useworkspace';
 const { workspace } = useWorkspace();
 
 export default function useSidebar() {
   // 创建矩形
-  const createRect = () => {
+  const createRect = (type: IRectAttribute) => {
     if (!workspace?.value) return;
     const rect = new Rect({
-      width: 300,
-      height: 300,
       editable: true,
-      fill: 'rgb(50,205,121)',
+      fill: randomColor(),
+      ...rectAttribute[type],
     });
     workspace?.value.add(rect);
   };
