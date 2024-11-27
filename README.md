@@ -6,3 +6,17 @@
 
 - 地址：[吉云设计](https://zhuhong96.github.io/design-workshop/)
 
+## 技术栈
+
+由于是vue3项目，没有使用**pinia/vuex**等状态管理工具，而是使用了vue3的**hooks**来实现的；个人觉得vue3的hooks比vuex更简洁，更符合vue3的响应式设计。
+
+- 前端：vue3、typescript、vite、less、leaferjs
+
+
+## 功能
+
+<!-- - [x] 图片设计
+- [x] 图片上传
+- [x] 图片下载
+- [x] 图片预览
+- [x] 图片保存 -->
