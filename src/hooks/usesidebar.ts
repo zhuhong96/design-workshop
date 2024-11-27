@@ -1,39 +1,41 @@
-import { App, Text, Box, Rect, Image } from 'leafer-ui';
-import { IFrame } from '@leafer-ui/interface';
-import { ref } from 'vue';
+import { Text, Rect, Image } from 'leafer-ui';
+import useWorkspace from '@/hooks/useworkspace';
+const { workspace } = useWorkspace();
 
-export default function useSidebar(workspace: IFrame) {
-  const workspaceFrame = ref<IFrame>(workspace);
-
+export default function useSidebar() {
   // 创建矩形
-  const createRect = (app?: App) => {
+  const createRect = () => {
+    if (!workspace?.value) return;
     const rect = new Rect({
       width: 300,
       height: 300,
       editable: true,
       fill: 'rgb(50,205,121)',
     });
-    workspaceFrame.value.add(rect);
+    workspace?.value.add(rect);
   };
+
   // 创建文字
-  const createText = (app?: App) => {
+  const createText = () => {
+    if (!workspace?.value) return;
     const text = new Text({
       fill: 'rgb(50,205,121)',
       text: 'Welcome to LeaferJS',
       editable: true,
       fontSize: 30,
     });
-    workspaceFrame.value.add(text);
+    workspace.value.add(text);
   };
 
   // 创建图片
-  const createImage = (app?: App) => {
+  const createImage = () => {
+    if (!workspace?.value) return;
     const image = new Image({
       url: new URL('../assets/sidebar/icon-tupian.png', import.meta.url).href,
       draggable: true,
       editable: true,
     });
-    workspaceFrame.value.add(image);
+    workspace.value.add(image);
   };
 
   return {

@@ -62,8 +62,7 @@ onUnmounted(() => {
 <template>
   <div id="content" class="draw">
     <div class="draw-sidebar">
-      <sidebar v-if="initDraw?.getWorkspace()" v-model="sidebarSelect" :workspace="initDraw?.getWorkspace()" />
-      <!-- <img src="@/images/logo.png" alt="JiYun" style="width: 42px; border-radius: 42px" /> -->
+      <sidebar v-model="sidebarSelect" />
     </div>
     <div class="draw-box">
       <div class="draw-header">
@@ -79,14 +78,8 @@ onUnmounted(() => {
           ]"
         >
           <jy-icon class="icon" type="icon-right" @click="showSidebar = !showSidebar"></jy-icon>
-          <characters
-            v-if="initDraw?.getWorkspace() && sidebarSelect === 'text'"
-            :workspace="initDraw?.getWorkspace()"
-          />
-          <element
-            v-if="initDraw?.getWorkspace() && sidebarSelect === 'element'"
-            :workspace="initDraw?.getWorkspace()"
-          />
+          <characters v-if="sidebarSelect === 'text'" />
+          <element v-else-if="sidebarSelect === 'element'" />
         </div>
         <div id="canvas" ref="canvasRef"></div>
       </div>

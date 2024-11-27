@@ -3,14 +3,15 @@ import '@leafer-in/editor';
 import { ref } from 'vue';
 import { IFrame } from '@leafer-ui/interface';
 
-export default function useWorkspace() {
-  const workspace = ref<IFrame>();
-  const scaleRatio = ref(1);
+const workspace = ref<IFrame>();
+const appLeafer = ref<App>();
+const scaleRatio = ref(1);
 
+export default function useWorkspace() {
   const workspaceInit = (app: App) => {
     if (!app.width || !app.height) return;
-    // console.log('app', app, app.width, app.height);
-
+    // 保存app
+    appLeafer.value = app;
     // 缩放比列
     const workspaceScaledWidth = (app.width - 100) / 1920;
     const workspaceScaledHeight = (app.height - 100) / 1080;
@@ -40,19 +41,20 @@ export default function useWorkspace() {
     // 移动画布
     app.tree.move({ x: Math.abs(moveLeft) + 10, y: moveRight + 10 });
 
-    const rect = new Rect({
-      width: 300,
-      height: 300,
-      editable: true,
-      fill: 'rgb(50,205,121)',
-    });
+    // const rect = new Rect({
+    //   width: 300,
+    //   height: 300,
+    //   editable: true,
+    //   fill: 'rgb(50,205,121)',
+    // });
     // rect.moveWorld(100, 100);
     // rect.move({ x: 100, y: 100 });
-    workspace.value.add(rect);
+    // workspace.value.add(rect);
   };
 
   return {
     workspaceInit,
     workspace,
+    appLeafer,
   };
 }

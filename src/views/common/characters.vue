@@ -6,21 +6,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
 import useSidebar from '@/hooks/usesidebar';
-import { IFrame } from '@leafer-ui/interface';
-
-const props = defineProps({
-  workspace: {
-    type: Object as () => IFrame,
-    default: () => {},
-  },
-});
-// 注册
-let useSidebarFn = useSidebar(props.workspace);
+const { createText } = useSidebar();
 
 const onCharactersClick = () => {
-  useSidebarFn?.createText();
+  createText();
 };
 </script>
 

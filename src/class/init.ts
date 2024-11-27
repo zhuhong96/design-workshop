@@ -3,7 +3,6 @@ import { App } from 'leafer-ui';
 import '@leafer-in/editor';
 import { Ruler } from 'leafer-x-ruler';
 import useWorkspace from '@/hooks/useworkspace';
-
 const useWorkspaceFn = useWorkspace();
 
 class Init {
@@ -11,7 +10,6 @@ class Init {
   private ruler: Ruler;
   workspace: any;
   // private frame: Frame;
-  // private box: Box;
 
   constructor(canvas: string | HTMLCanvasElement) {
     this.app = new App({
@@ -60,11 +58,6 @@ class Init {
 
   getApp() {
     return this.app;
-  }
-
-  // 获取画布
-  getWorkspace() {
-    return useWorkspaceFn.workspace.value;
   }
 }
 

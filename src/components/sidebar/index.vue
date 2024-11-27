@@ -20,8 +20,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { IFrame } from '@leafer-ui/interface';
-import useSidebar from '@/hooks/usesidebar';
 import pencilLoading from '@/components/uiverse/pencil-loading.vue';
 
 const props = defineProps({
@@ -29,14 +27,8 @@ const props = defineProps({
     type: String,
     default: () => 'text',
   },
-  workspace: {
-    type: Object as () => IFrame,
-    default: () => {},
-  },
 });
 const emits = defineEmits(['update:modelValue']);
-// 注册
-let useSidebarFn = useSidebar(props.workspace);
 
 const onSidebarClick = (type: string) => {
   emits('update:modelValue', type);
