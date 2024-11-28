@@ -10,6 +10,8 @@ import { debounce } from 'lodash';
 import elementResizeDetectorMaker from 'element-resize-detector';
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 const erd = elementResizeDetectorMaker();
+import useWorkspace from '@/hooks/useworkspace';
+const { editCanvasResize } = useWorkspace();
 // https://github.com/LvHuaiSheng/leafer-x-ruler
 // https://www.leaferjs.com/
 
@@ -18,6 +20,8 @@ const initDraw = ref<any>(null);
 const sidebarSelect = ref<string>('text');
 // 是否展示侧边栏
 const showSidebar = ref<boolean>(true);
+// 是否第一次进入
+const isFirst = ref<boolean>(true);
 
 onMounted(() => {
   initDraw.value = new InitDraw('canvas');
@@ -31,10 +35,10 @@ watch(
     if (!contentDom) return;
     const clientWidth = contentDom.offsetWidth as number;
     const clientHeight = contentDom.offsetHeight as number;
-    let width = clientWidth - 60;
+    let width = clientWidth - 62;
     const height = clientHeight - 60;
     if (newval) width = width - 260;
-    initDraw.value.getApp().app.resize({
+    editCanvasResize({
       width,
       height,
     });
@@ -43,13 +47,18 @@ watch(
 
 // 监听窗口变化
 const onResize = () => {
-  const onResize = debounce((width: number, height: number) => {
-    initDraw.value.getApp().app.resize({ width: width - 60 - 260, height: height - 60 });
+  const onResizeDebounce = debounce((width: number, height: number) => {
+    // initDraw.value.getApp().app.resize({ width: width - 60 - 260, height: height - 60 });
+    editCanvasResize({
+      width: width - 62 - 260,
+      height: height - 60,
+    });
   }, 100);
   erd.listenTo(document.getElementById('content'), function (element: { offsetWidth: number; offsetHeight: number }) {
     const width = element.offsetWidth;
     const height = element.offsetHeight;
-    onResize(width, height);
+    if (isFirst.value) return (isFirst.value = false);
+    onResizeDebounce(width, height);
   });
 };
 

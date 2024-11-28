@@ -1,29 +1,27 @@
-import { App, Frame, Box, Rect } from 'leafer-ui';
+import { App, Frame } from 'leafer-ui';
 import '@leafer-in/editor';
 import { ref } from 'vue';
 import { IFrame } from '@leafer-ui/interface';
+import { IWorkspaceSize } from '@/types/workspace';
 
 const workspace = ref<IFrame>();
 const appLeafer = ref<App>();
 const scaleRatio = ref(1);
+// 画布大小
+const workspaceSize = ref<IWorkspaceSize>({ width: 1920, height: 1080 });
 
 export default function useWorkspace() {
-  const workspaceInit = (app: App) => {
+  // 初始化画布
+  const workspaceInit = (app: App, size: IWorkspaceSize = workspaceSize.value) => {
     if (!app.width || !app.height) return;
+    // 画布大小
+    workspaceSize.value = size;
     // 保存app
     appLeafer.value = app;
-    // 缩放比列
-    const workspaceScaledWidth = (app.width - 100) / 1920;
-    const workspaceScaledHeight = (app.height - 100) / 1080;
-    // 画布缩放比例
-    scaleRatio.value = workspaceScaledWidth < workspaceScaledHeight ? workspaceScaledWidth : workspaceScaledHeight;
-    // 画布移动距离
-    const moveLeft = app.width / 2 - (1920 / 2) * scaleRatio.value;
-    const moveRight = app.height / 2 - (1080 / 2) * scaleRatio.value;
     // 初始化画布
     workspace.value = new Frame({
-      width: 1920,
-      height: 1080,
+      width: workspaceSize.value.width,
+      height: workspaceSize.value.height,
       // overflow: 'hide',
       editable: false,
       lockRatio: true,
@@ -34,14 +32,9 @@ export default function useWorkspace() {
     });
     // 添加画布到app
     app.tree.add(workspace.value);
-    // 画布缩放->自身缩放比例
-    const scale = workspace.value.scale as number;
-    // 画布缩放->缩放比列
-    workspace.value.scaleOf('top-left', scaleRatio.value / scale);
-    // workspace.value.moveWorld(300, 10);
-    // 移动画布
-    app.tree.move({ x: Math.abs(moveLeft) + 10, y: moveRight + 10 });
 
+    // 缩放画布
+    workspaceScale();
     // const rect = new Rect({
     //   width: 300,
     //   height: 300,
@@ -53,8 +46,45 @@ export default function useWorkspace() {
     // workspace.value.add(rect);
   };
 
+  // 画布缩放以及移动
+  const workspaceScale = (App?: App) => {
+    const app = App || (appLeafer.value as App);
+    if (!app.width || !app.height || !workspace.value) return;
+    // 缩放比列
+    const workspaceScaledWidth = (app.width - 100) / workspaceSize.value.width;
+    const workspaceScaledHeight = (app.height - 100) / workspaceSize.value.height;
+    // 画布缩放比例
+    scaleRatio.value = workspaceScaledWidth < workspaceScaledHeight ? workspaceScaledWidth : workspaceScaledHeight;
+    // 画布移动距离
+    const moveLeft = app.width / 2 - (workspaceSize.value.width / 2) * scaleRatio.value;
+    const moveTop = app.height / 2 - (workspaceSize.value.height / 2) * scaleRatio.value;
+    // 画布缩放->自身缩放比例
+    const scale = workspace.value.scale as number;
+    // 画布缩放->缩放比列
+    workspace.value.scaleOf('top-left', scaleRatio.value / scale);
+    // 获取画布原始位置->移动距离
+    const x = app.tree.x ? moveLeft - app.tree.x : moveLeft;
+    const y = app.tree.y ? moveTop - app.tree.y : moveTop;
+    // app.tree.moveWorld(0, 0);
+    // 移动画布
+    app.tree.move({ x: x + 10, y: y + 10 });
+  };
+
+  // 修改画布大小
+  const editCanvasResize = (size: IWorkspaceSize) => {
+    if (!appLeafer.value) return;
+    appLeafer.value.resize({
+      width: size.width,
+      height: size.height,
+    });
+    workspaceScale(appLeafer.value);
+    // setTimeout(() => workspaceScale(appLeafer.value), 1000);
+  };
+
   return {
     workspaceInit,
+    workspaceScale,
+    editCanvasResize,
     workspace,
     appLeafer,
   };
