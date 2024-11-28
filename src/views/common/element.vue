@@ -10,10 +10,10 @@
       <div class="element-rect-2" @click="createRect('rectDiamond')"></div>
     </div>
     <div class="element-list">
-      <div class="element-circle"></div>
+      <div class="element-circle" @click="createEllipse('ellipse')"></div>
     </div>
     <div class="element-list">
-      <div class="element-circle-1"></div>
+      <div class="element-circle-1" @click="createEllipse('ring')"></div>
     </div>
     <div class="element-list">
       <div class="element-line"></div>
@@ -25,10 +25,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import useSidebar from '@/hooks/usesidebar';
 import { IFrame } from '@leafer-ui/interface';
-const { createRect } = useSidebar();
+const { createRect, createEllipse } = useSidebar();
 
 const props = defineProps({
   workspace: {

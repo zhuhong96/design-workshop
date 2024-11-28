@@ -29,6 +29,7 @@ export default function useWorkspace() {
       lockRatio: true,
       x: 0,
       y: 0,
+      id: 'workspace',
       resizeChildren: true,
     });
     // 添加画布到app

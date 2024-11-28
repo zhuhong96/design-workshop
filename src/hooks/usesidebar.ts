@@ -1,5 +1,6 @@
-import { Text, Rect, Image } from 'leafer-ui';
+import { Text, Rect, Image, Ellipse } from 'leafer-ui';
 import rectAttribute, { IRectAttribute } from '@/attribute/rect';
+import ellipseAttribute, { IEllipseAttribute } from '@/attribute/ellipse';
 import { randomColor } from '@/utils/color';
 import useWorkspace from '@/hooks/useworkspace';
 const { workspace } = useWorkspace();
@@ -14,6 +15,20 @@ export default function useSidebar() {
       ...rectAttribute[type],
     });
     workspace?.value.add(rect);
+  };
+
+  // 创建椭圆
+  const createEllipse = (type: IEllipseAttribute) => {
+    if (!workspace?.value) return;
+    const ellipse = new Ellipse({
+      editable: true,
+      fill: randomColor(),
+      width: 200,
+      height: 200,
+      ...ellipseAttribute[type],
+    });
+
+    workspace?.value.add(ellipse);
   };
 
   // 创建文字
@@ -43,5 +58,6 @@ export default function useSidebar() {
     createRect,
     createText,
     createImage,
+    createEllipse,
   };
 }
