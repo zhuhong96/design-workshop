@@ -1,4 +1,4 @@
-import { App, Frame } from 'leafer-ui';
+import { App, Frame, Rect } from 'leafer-ui';
 import '@leafer-in/editor';
 import { ref } from 'vue';
 import { IFrame } from '@leafer-ui/interface';
@@ -41,9 +41,9 @@ export default function useWorkspace() {
     //   editable: true,
     //   fill: 'rgb(50,205,121)',
     // });
-    // rect.moveWorld(100, 100);
-    // rect.move({ x: 100, y: 100 });
+    // // rect.moveWorld(100, 100);
     // workspace.value.add(rect);
+    // rect.move(getElementXY(rect));
   };
 
   // 画布缩放以及移动
@@ -70,6 +70,18 @@ export default function useWorkspace() {
     app.tree.move({ x: x + 10, y: y + 10 });
   };
 
+  // 计算x和y坐标
+  const getElementXY = (element: any): { x: number; y: number } => {
+    if (!workspace.value || !workspace.value.width || !workspace.value.height) return { x: 0, y: 0 };
+    // const width = workspace.value.width * scaleRatio.value;
+    // const height = workspace.value.height * scaleRatio.value;
+    console.log('element', element);
+
+    const x = (workspace.value.width - element.width) / 2;
+    const y = (workspace.value.height - element.height) / 2;
+    return { x, y };
+  };
+
   // 修改画布大小
   const editCanvasResize = (size: IWorkspaceSize) => {
     if (!appLeafer.value) return;
@@ -85,6 +97,7 @@ export default function useWorkspace() {
     workspaceInit,
     workspaceScale,
     editCanvasResize,
+    getElementXY,
     workspace,
     appLeafer,
   };

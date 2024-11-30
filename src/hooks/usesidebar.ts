@@ -1,9 +1,9 @@
-import { Text, Rect, Image, Ellipse } from 'leafer-ui';
+import { Text, Rect, Image, Ellipse, Line } from 'leafer-ui';
 import rectAttribute, { IRectAttribute } from '@/attribute/rect';
 import ellipseAttribute, { IEllipseAttribute } from '@/attribute/ellipse';
 import { randomColor } from '@/utils/color';
 import useWorkspace from '@/hooks/useworkspace';
-const { workspace } = useWorkspace();
+const { workspace, getElementXY } = useWorkspace();
 
 export default function useSidebar() {
   // 创建矩形
@@ -15,6 +15,7 @@ export default function useSidebar() {
       ...rectAttribute[type],
     });
     workspace?.value.add(rect);
+    rect.move(getElementXY(rect));
   };
 
   // 创建椭圆
@@ -27,20 +28,21 @@ export default function useSidebar() {
       height: 200,
       ...ellipseAttribute[type],
     });
-
     workspace?.value.add(ellipse);
+    ellipse.move(getElementXY(ellipse));
   };
 
   // 创建文字
   const createText = () => {
     if (!workspace?.value) return;
     const text = new Text({
-      fill: 'rgb(50,205,121)',
-      text: 'Welcome to LeaferJS',
       editable: true,
+      fill: 'rgb(50,205,121)',
+      text: '吉云设计',
       fontSize: 30,
     });
     workspace.value.add(text);
+    text.move(getElementXY(text));
   };
 
   // 创建图片
@@ -54,10 +56,26 @@ export default function useSidebar() {
     workspace.value.add(image);
   };
 
+  // 创建线
+  const createLine = () => {
+    if (!workspace?.value) return;
+    const line = new Line({
+      editable: true,
+      width: 100,
+      rotation: 45,
+      strokeWidth: 5,
+      cornerRadius: 30,
+      stroke: randomColor(),
+    });
+    workspace.value.add(line);
+    line.move(getElementXY(line));
+  };
+
   return {
     createRect,
     createText,
     createImage,
     createEllipse,
+    createLine,
   };
 }

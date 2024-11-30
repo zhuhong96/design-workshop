@@ -15,19 +15,19 @@
     <div class="element-list">
       <div class="element-circle-1" @click="createEllipse('ring')"></div>
     </div>
-    <div class="element-list">
+    <div class="element-list" @click="createLine">
       <div class="element-line"></div>
     </div>
-    <div class="element-list">
+    <!-- <div class="element-list">
       <div class="element-m">M</div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 import useSidebar from '@/hooks/usesidebar';
 import { IFrame } from '@leafer-ui/interface';
-const { createRect, createEllipse } = useSidebar();
+const { createRect, createEllipse, createLine } = useSidebar();
 
 const props = defineProps({
   workspace: {
