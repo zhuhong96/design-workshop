@@ -91,6 +91,11 @@ onUnmounted(() => {
           <element v-else-if="sidebarSelect === 'element'" />
         </div>
         <div id="canvas" ref="canvasRef"></div>
+        <div class="layout-attribute">
+          属性
+          <el-button type="danger">Danger</el-button>
+          <el-link type="warning">warning</el-link>
+        </div>
       </div>
     </div>
   </div>
