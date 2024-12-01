@@ -19,7 +19,17 @@
         </div>
       </div>
       <div class="navigation-right">
-        <div class="navigation-list button-style">导出</div>
+        <el-dropdown placement="bottom-end">
+          <el-button type="primary"> 导出 </el-button>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>png 图片</el-dropdown-item>
+              <el-dropdown-item>JSON 文件</el-dropdown-item>
+              <!-- <el-dropdown-item>Action 3</el-dropdown-item> -->
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+        <!-- <div class="navigation-list button-style">导出</div> -->
         <!-- <div class="navigation-list button-style">登录/注册</div> -->
       </div>
     </div>

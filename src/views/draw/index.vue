@@ -5,6 +5,7 @@ import sidebar from '@/components/sidebar/index.vue';
 import characters from '../common/characters.vue';
 import navigation from '@/components/navigation/index.vue';
 import element from '../common/element.vue';
+import Images from '../common/images.vue';
 import InitDraw from '@/class/init';
 import { debounce } from 'lodash';
 import elementResizeDetectorMaker from 'element-resize-detector';
@@ -80,6 +81,7 @@ onUnmounted(() => {
           <el-aside :width="showSidebar ? '260px' : '0'">
             <characters v-if="sidebarSelect === 'text'" />
             <element v-else-if="sidebarSelect === 'element'" />
+            <Images v-else-if="sidebarSelect === 'image'" />
           </el-aside>
           <el-main style="padding: 0" class="layout-main">
             <jy-icon class="icon" type="icon-right" @click="showSidebar = !showSidebar"></jy-icon>

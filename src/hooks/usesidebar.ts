@@ -65,6 +65,7 @@ export default function useSidebar() {
       rotation: 45,
       strokeWidth: 20,
       cornerRadius: 30,
+      fontSize: 30,
       stroke: randomColor(),
     });
     workspace.value.add(line);
