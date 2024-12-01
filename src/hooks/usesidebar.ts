@@ -37,7 +37,7 @@ export default function useSidebar() {
     if (!workspace?.value) return;
     const text = new Text({
       editable: true,
-      fill: 'rgb(50,205,121)',
+      fill: randomColor(),
       text: '吉云设计',
       fontSize: 30,
     });
@@ -61,9 +61,9 @@ export default function useSidebar() {
     if (!workspace?.value) return;
     const line = new Line({
       editable: true,
-      width: 100,
+      width: 300,
       rotation: 45,
-      strokeWidth: 5,
+      strokeWidth: 20,
       cornerRadius: 30,
       stroke: randomColor(),
     });

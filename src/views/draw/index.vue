@@ -74,7 +74,21 @@ onUnmounted(() => {
       <sidebar v-model="sidebarSelect" />
     </div>
     <div class="draw-box">
-      <div class="draw-header">
+      <el-container>
+        <el-header><navigation /></el-header>
+        <el-container>
+          <el-aside :width="showSidebar ? '260px' : '0'">
+            <characters v-if="sidebarSelect === 'text'" />
+            <element v-else-if="sidebarSelect === 'element'" />
+          </el-aside>
+          <el-main style="padding: 0" class="layout-main">
+            <jy-icon class="icon" type="icon-right" @click="showSidebar = !showSidebar"></jy-icon>
+            <canvas id="canvas" ref="canvasRef"></canvas>
+          </el-main>
+          <!-- <el-aside width="260px"> 465456 </el-aside> -->
+        </el-container>
+      </el-container>
+      <!-- <div class="draw-header">
         <navigation />
       </div>
       <div class="layout-content">
@@ -96,7 +110,7 @@ onUnmounted(() => {
           <el-button type="danger">Danger</el-button>
           <el-link type="warning">warning</el-link>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
