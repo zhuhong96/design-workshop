@@ -6,6 +6,7 @@ import characters from '../common/characters.vue';
 import navigation from '@/components/navigation/index.vue';
 import element from '../common/element.vue';
 import Images from '../common/images.vue';
+import Panel from '../common/panel.vue';
 import InitDraw from '@/class/init';
 import { debounce } from 'lodash';
 import elementResizeDetectorMaker from 'element-resize-detector';
@@ -36,7 +37,7 @@ watch(
     if (!contentDom) return;
     const clientWidth = contentDom.offsetWidth as number;
     const clientHeight = contentDom.offsetHeight as number;
-    let width = clientWidth - 62;
+    let width = clientWidth - 322;
     const height = clientHeight - 60;
     if (newval) width = width - 260;
     editCanvasResize({
@@ -51,7 +52,7 @@ const onResize = () => {
   const onResizeDebounce = debounce((width: number, height: number) => {
     // initDraw.value.getApp().app.resize({ width: width - 60 - 260, height: height - 60 });
     editCanvasResize({
-      width: width - 62 - 260,
+      width: width - 322 - 260,
       height: height - 60,
     });
   }, 100);
@@ -87,7 +88,7 @@ onUnmounted(() => {
             <jy-icon class="icon" type="icon-right" @click="showSidebar = !showSidebar"></jy-icon>
             <canvas id="canvas" ref="canvasRef"></canvas>
           </el-main>
-          <!-- <el-aside width="260px"> 465456 </el-aside> -->
+          <el-aside width="260px"> <Panel /> </el-aside>
         </el-container>
       </el-container>
       <!-- <div class="draw-header">

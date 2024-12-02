@@ -39,7 +39,7 @@ export default function useSidebar() {
       editable: true,
       fill: randomColor(),
       text: '吉云设计',
-      fontSize: 30,
+      fontSize: 120,
     });
     workspace.value.add(text);
     text.move(getElementXY(text));

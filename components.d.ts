@@ -17,6 +17,8 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElMain: typeof import('element-plus/es')['ElMain']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     Navigation: typeof import('./src/components/navigation/index.vue')['default']
     PencilLoading: typeof import('./src/components/uiverse/pencil-loading.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
