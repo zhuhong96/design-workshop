@@ -29,6 +29,8 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
+        <el-button type="warning" @click="setUseTheme">Warning</el-button>
+        <el-button type="danger">Danger</el-button>
         <!-- <div class="navigation-list button-style">导出</div> -->
         <!-- <div class="navigation-list button-style">登录/注册</div> -->
       </div>
@@ -36,7 +38,10 @@
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import useTheme from '@/hooks/theme';
+const { setUseTheme } = useTheme();
+</script>
 
 <style scoped lang="less">
 .navigation {

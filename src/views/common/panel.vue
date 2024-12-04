@@ -22,10 +22,10 @@ import { ref } from 'vue';
 .panel {
   width: 100%;
   height: 100%;
-  border-left: 1px solid #2c2c3a;
+  border-left: 1px solid #cbcbcb;
   // padding: 0 12px;
-  border-top: 1px solid #2c2c3a;
+  border-top: 1px solid #cbcbcb;
   // background-color: #16161b;
-  background-color: #191930;
+  // background-color: #191930;
 }
 </style>

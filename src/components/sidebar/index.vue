@@ -11,7 +11,7 @@
         :class="['sidebar-box-list', modelValue === item.value ? 'sidebar-box-list-active' : '']"
         @click="onSidebarClick(item.value)"
       >
-        <jy-icon size="24" :type="item.icon" :color="modelValue === item.value ? '#fff' : ''"></jy-icon>
+        <jy-icon size="24" :type="item.icon" :color="setColor(item.value)"></jy-icon>
         <span>{{ item.title }} </span>
       </div>
     </div>
@@ -21,6 +21,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import pencilLoading from '@/components/uiverse/pencil-loading.vue';
+import useTheme from '@/hooks/theme';
+const { theme } = useTheme();
 
 const props = defineProps({
   modelValue: {
@@ -46,6 +48,15 @@ const onSidebarClick = (type: string) => {
   //   default:
   //     break;
   // }
+};
+
+// 设置颜色
+const setColor = (value: string) => {
+  if (theme.value === 'light') {
+    return props.modelValue === value ? '#000' : '#ccc';
+  } else {
+    return props.modelValue === value ? '#fff' : '#8b8b8b';
+  }
 };
 
 const sidebarList = ref([
@@ -81,7 +92,7 @@ const sidebarList = ref([
   width: 100%;
   height: 100%;
   z-index: 9;
-  background-color: #16161a;
+  // background-color: #16161a;
 
   .sidebar-login {
     display: flex;
@@ -113,7 +124,7 @@ const sidebarList = ref([
     }
 
     .sidebar-box-list-active {
-      color: #fff;
+      // color: #a93df1;
     }
   }
 }

@@ -4,6 +4,8 @@ import '@leafer-in/editor';
 import { Ruler } from 'leafer-x-ruler';
 import useWorkspace from '@/hooks/useworkspace';
 const useWorkspaceFn = useWorkspace();
+import useTheme from '@/hooks/theme';
+const { initTheme } = useTheme();
 
 class Init {
   private app: App;
@@ -41,6 +43,8 @@ class Init {
       enabled: true,
       theme: 'dark',
     });
+
+    initTheme(this.ruler, this.app);
 
     // 添加自定义主题
     // this.ruler.addTheme('dark', {

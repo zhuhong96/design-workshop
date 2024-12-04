@@ -75,8 +75,6 @@ export default function useWorkspace() {
     if (!workspace.value || !workspace.value.width || !workspace.value.height) return { x: 0, y: 0 };
     // const width = workspace.value.width * scaleRatio.value;
     // const height = workspace.value.height * scaleRatio.value;
-    console.log('element', element);
-
     const x = (workspace.value.width - element.width) / 2;
     const y = (workspace.value.height - element.height) / 2;
     return { x, y };
@@ -93,11 +91,26 @@ export default function useWorkspace() {
     // setTimeout(() => workspaceScale(appLeafer.value), 1000);
   };
 
+  // 修改画布颜色
+  const editCanvasColor = (color?: string) => {
+    if (!workspace.value) return;
+    workspace.value.fill = color || 'rgba(255,255,255,0)';
+  };
+
+  // 更新辅助线
+  const updateGuides = (theme: string) => {
+    if (!workspace.value || !appLeafer.value) return;
+    workspace.value.move({ x: theme == 'dark' ? 1 : -1, y: theme == 'dark' ? 1 : -1 });
+    workspaceScale(appLeafer.value);
+  };
+
   return {
     workspaceInit,
     workspaceScale,
     editCanvasResize,
     getElementXY,
+    editCanvasColor,
+    updateGuides,
     workspace,
     appLeafer,
   };
