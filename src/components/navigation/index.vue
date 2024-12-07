@@ -19,8 +19,17 @@
         </div>
       </div>
       <div class="navigation-right">
+        <el-switch
+          v-model="themeValue"
+          style="--el-switch-on-color: #191931; --el-switch-off-color: #191931"
+          inline-prompt
+          size="large"
+          active-text="暗夜"
+          inactive-text="日间"
+          @change="setUseTheme"
+        />
         <el-dropdown placement="bottom-end">
-          <el-button type="primary"> 导出 </el-button>
+          <el-button type="primary" size="small"> 导出 </el-button>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item>png 图片</el-dropdown-item>
@@ -29,8 +38,6 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        <el-button type="warning" @click="setUseTheme">Warning</el-button>
-        <el-button type="danger">Danger</el-button>
         <!-- <div class="navigation-list button-style">导出</div> -->
         <!-- <div class="navigation-list button-style">登录/注册</div> -->
       </div>
@@ -39,8 +46,11 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import useTheme from '@/hooks/theme';
 const { setUseTheme } = useTheme();
+
+const themeValue = ref(true);
 </script>
 
 <style scoped lang="less">

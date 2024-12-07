@@ -4,7 +4,7 @@
       <pencilLoading />
       <!-- <jy-icon size="36" type="tupian"></jy-icon> -->
     </div>
-    <div class="sidebar-box">
+    <div class="sidebar-box theme-border-right">
       <div
         v-for="(item, index) in sidebarList"
         :key="index"
@@ -92,7 +92,6 @@ const sidebarList = ref([
   width: 100%;
   height: 100%;
   z-index: 9;
-  // background-color: #16161a;
 
   .sidebar-login {
     display: flex;
@@ -104,7 +103,6 @@ const sidebarList = ref([
 
   .sidebar-box {
     padding: 16px 0 0;
-    border-right: 1px solid #2c2c3a;
     height: calc(100% - 76px);
 
     .sidebar-box-list {
