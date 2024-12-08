@@ -54,5 +54,6 @@ export default {
   align-items: center;
   gap: 8px;
   font-size: 14px;
+  cursor: pointer;
 }
 </style>
