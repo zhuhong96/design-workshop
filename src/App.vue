@@ -6,7 +6,12 @@
   </router-view>
 </template>
 
-<style scoped lang="less">
+<style lang="less">
+#app {
+  width: 100%;
+  height: 100%;
+}
+
 :root {
   /* 滚动条整体部分，必须要设置 */
   ::-webkit-scrollbar {

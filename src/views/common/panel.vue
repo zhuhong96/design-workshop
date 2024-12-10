@@ -48,6 +48,30 @@
       </div>
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">文字颜色</div>
+        <div class="panel-box-content">
+          <div v-for="(item, index) in COLOR" :key="index" class="color-list" :style="{ backgroundColor: item }"></div>
+        </div>
+      </div>
+      <div class="panel-box-list">
+        <div class="panel-box-title theme-color">描边</div>
+        <div class="panel-box-content">
+          <el-input-number v-model="fontSize" size="small" :min="10" :max="100">
+            <template #suffix>
+              <span>PX</span>
+            </template>
+          </el-input-number>
+        </div>
+      </div>
+      <div class="panel-box-list">
+        <div class="panel-box-title theme-color">透明度</div>
+        <div class="panel-box-content">456</div>
+      </div>
+      <div class="panel-box-list">
+        <div class="panel-box-title theme-color">位置</div>
+        <div class="panel-box-content">456</div>
+      </div>
+      <div class="panel-box-list">
+        <div class="panel-box-title theme-color">旋转</div>
         <div class="panel-box-content">456</div>
       </div>
     </div>
@@ -56,6 +80,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { COLOR } from '@/config/color';
 const activeName = ref<'foundation' | 'mix'>('foundation');
 // 文本
 const textarea = ref('');
