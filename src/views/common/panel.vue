@@ -19,7 +19,9 @@
         <div class="panel-box-title theme-color">快捷操作</div>
         <div class="panel-box-content">
           <el-tooltip content="水平翻转" placement="top">
-            <jy-icon size="18" type="icon-chuizhifanzhuan"></jy-icon>
+            <jy-icon size="18" type="icon-chuizhifanzhuan"
+            @click="handleFlip('horizontal')"
+            ></jy-icon>
           </el-tooltip>
           <el-tooltip content="垂直翻转" placement="top">
             <jy-icon size="18" type="icon-chuizhifanzhuan1"></jy-icon>
@@ -43,7 +45,7 @@
             </template>
           </el-input-number>
 
-          <jy-icon size="18" type="icon-kaobei"></jy-icon>
+          <!-- <jy-icon size="18" type="icon-kaobei"></jy-icon> -->
         </div>
       </div>
       <div class="panel-box-list">
@@ -64,15 +66,23 @@
       </div>
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">透明度</div>
-        <div class="panel-box-content">456</div>
+        <div class="panel-box-content">
+          <el-slider v-model="opacity" show-input :min="0" :max="360" size="small" />
+        </div>
       </div>
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">位置</div>
         <div class="panel-box-content">456</div>
       </div>
       <div class="panel-box-list">
-        <div class="panel-box-title theme-color">旋转</div>
+        <div class="panel-box-title theme-color">尺寸</div>
         <div class="panel-box-content">456</div>
+      </div>
+      <div class="panel-box-list">
+        <div class="panel-box-title theme-color">旋转</div>
+        <div class="panel-box-content">
+          <el-slider v-model="rotate" show-input :min="0" :max="360" size="small" />
+        </div>
       </div>
     </div>
   </div>
@@ -86,10 +96,20 @@ const activeName = ref<'foundation' | 'mix'>('foundation');
 const textarea = ref('');
 // 字体大小
 const fontSize = ref(16);
+// 透明度
+const opacity = ref(1);
+// 旋转
+const rotate = ref(0);
 
 // 切换tabs
 const changeTabs = (name: 'foundation' | 'mix') => {
   activeName.value = name;
+};
+
+// 翻转
+const handleFlip = (type: 'horizontal' | 'vertical') => {
+  console.log(type);
+  // appLeafer.value?.editor.flipx(true)
 };
 </script>
 
