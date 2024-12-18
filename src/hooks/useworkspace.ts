@@ -3,7 +3,8 @@ import '@leafer-in/editor';
 import { ref } from 'vue';
 import { IFrame } from '@leafer-ui/interface';
 import { IWorkspaceSize } from '@/types/workspace';
-import initEvent from './event';
+import initEvent from './editorEvent';
+const { initEditorEvent } = initEvent();
 
 const workspace = ref<IFrame>();
 const appLeafer = ref<App>();
@@ -37,7 +38,7 @@ export default function useWorkspace() {
     // 缩放画布
     workspaceScale();
     // 注册事件
-    initEvent(app);
+    initEditorEvent(app);
     // const rect = new Rect({
     //   width: 300,
     //   height: 300,

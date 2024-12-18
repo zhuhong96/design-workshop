@@ -24,7 +24,8 @@
             ></jy-icon>
           </el-tooltip>
           <el-tooltip content="垂直翻转" placement="top">
-            <jy-icon size="18" type="icon-chuizhifanzhuan1"></jy-icon>
+            <jy-icon size="18" type="icon-chuizhifanzhuan1"
+            @click="handleFlip('vertical')"></jy-icon>
           </el-tooltip>
           <el-tooltip content="拷贝" placement="top">
             <jy-icon size="18" type="icon-kaobei"></jy-icon>
@@ -91,7 +92,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { COLOR } from '@/config/color';
+import { IFlipKeys } from "@/types/attrs";
+import useAttrs from '@/hooks/attrs';
 const activeName = ref<'foundation' | 'mix'>('foundation');
+const { horizontal } = useAttrs();
+
 // 文本
 const textarea = ref('');
 // 字体大小
@@ -107,9 +112,9 @@ const changeTabs = (name: 'foundation' | 'mix') => {
 };
 
 // 翻转
-const handleFlip = (type: 'horizontal' | 'vertical') => {
-  console.log(type);
+const handleFlip = (type: IFlipKeys) => {
   // appLeafer.value?.editor.flipx(true)
+  horizontal(type);
 };
 </script>
 
