@@ -1,7 +1,7 @@
 <template>
   <div class="characters">
-    <div class="characters-list" @click="onCharactersClick">吉云设计</div>
-    <div class="characters-list">吉云设计</div>
+    <div class="characters-list theme-card" @click="onCharactersClick">吉云设计</div>
+    <div class="characters-list theme-card">吉云设计</div>
   </div>
 </template>
 
@@ -31,7 +31,6 @@ const onCharactersClick = () => {
     font-size: 16px;
     cursor: pointer;
     color: #fff;
-    background-color: #0a0b10;
   }
 }
 </style>

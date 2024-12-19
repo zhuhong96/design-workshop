@@ -38,12 +38,13 @@
   /* 滚动条里面的小方块，能向上向下移动 */
   *:hover::-webkit-scrollbar-thumb {
     display: flex;
-    background-color: #fff;
+    // background-color: #fff;
+    background-color: #6b7280;
     border-radius: 3px;
   }
 
   *:hover::-webkit-scrollbar-track-piece {
-    background-color: #6b7280;
+    background-color: #fff;
   }
 }
 </style>

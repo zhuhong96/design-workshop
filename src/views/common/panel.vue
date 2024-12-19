@@ -52,7 +52,10 @@
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">文字颜色</div>
         <div class="panel-box-content">
-          <div v-for="(item, index) in COLOR" :key="index" class="color-list" :style="{ backgroundColor: item }"></div>
+          <div v-for="(item, index) in COLOR" @click="changeColor(item)" :key="index" class="color-list" :style="{ backgroundColor: item }"></div>
+          <el-color-picker v-model="color"
+          @change="(e:string)=> changeColor(e)"
+          show-alpha :predefine="predefineColors" />
         </div>
       </div>
       <div class="panel-box-list">
@@ -64,6 +67,14 @@
             </template>
           </el-input-number>
         </div>
+      </div>
+      <div class="panel-box-list">
+        <div class="panel-box-title theme-color">圆角</div>
+        <div class="panel-box-content">456</div>
+      </div>
+      <div class="panel-box-list">
+        <div class="panel-box-title theme-color">阴影</div>
+        <div class="panel-box-content">456</div>
       </div>
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">透明度</div>
@@ -90,21 +101,49 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { COLOR } from '@/config/color';
 import { IFlipKeys } from "@/types/attrs";
+import editorEvent from '@/hooks/editorEvent';
 import useAttrs from '@/hooks/attrs';
 const activeName = ref<'foundation' | 'mix'>('foundation');
-const { horizontal } = useAttrs();
+const { horizontal, changeColor } = useAttrs();
+const { selectData } = editorEvent();
+
+watch(()=>selectData.value, (val:any) => {
+  if (val && val.value) {
+    textarea.value = val.value.text || '';
+  } else {
+    textarea.value = '';
+  }
+})
 
 // 文本
-const textarea = ref('');
+const textarea = ref<string>('');
 // 字体大小
 const fontSize = ref(16);
 // 透明度
 const opacity = ref(1);
 // 旋转
 const rotate = ref(0);
+// 颜色
+const color = ref('rgba(126, 200, 29, 1)');
+const predefineColors = ref([
+  '#ff4500',
+  '#ff8c00',
+  '#ffd700',
+  '#90ee90',
+  '#00ced1',
+  '#1e90ff',
+  '#c71585',
+  'rgba(255, 69, 0, 0.68)',
+  'rgb(255, 120, 0)',
+  'hsv(51, 100, 98)',
+  'hsva(120, 40, 94, 0.5)',
+  'hsl(181, 100%, 37%)',
+  'hsla(209, 100%, 56%, 0.73)',
+  '#c7158577',
+])
 
 // 切换tabs
 const changeTabs = (name: 'foundation' | 'mix') => {
