@@ -24,10 +24,37 @@ export default function useAttrs() {
       selectData.value.value.fill = color;
     }
   }
+
+  // 描边
+  const handleStroke = (color: string, width: number = 1) => {
+    if (!selectData.value?.value || !color) return;
+    if (Array.isArray(selectData?.value.value)) {
+      selectData.value.value.forEach((ui:any) => {
+        ui.stroke = color;
+        ui.strokeWidth = width;
+      });
+    } else {
+      selectData.value.value.stroke = color;
+      selectData.value.value.strokeWidth = width;
+    }
+  }
+  
+  // 文字大小
+  const handleFontSize = (size: number) => {
+    if (!selectData.value?.value || !size) return;
+    if (Array.isArray(selectData?.value.value)) {
+      selectData.value.value.forEach((ui:any) => ui.fontSize = size);
+    } else {
+      // @ts-ignore
+      selectData.value.value.fontSize = size;
+    }
+  }
   
 
   return {
     horizontal,
-    changeColor
+    changeColor,
+    handleStroke,
+    handleFontSize
   }
 }

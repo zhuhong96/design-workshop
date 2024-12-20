@@ -35,12 +35,14 @@
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">文本</div>
         <div class="panel-box-content">
-          <el-input v-model="textarea" style="width: 100%" :rows="4" type="textarea" placeholder="请输入文本" />
+          <el-input v-model="attrsParams.textarea" style="width: 100%" :rows="4" type="textarea" placeholder="请输入文本" />
         </div>
 
         <div class="panel-box-text-attr">
           <!-- <span>字体大小：</span> -->
-          <el-input-number v-model="fontSize" size="small" :min="10" :max="100">
+          <el-input-number v-model="attrsParams.fontSize"
+          @change="(e:number)=> handleFontSize(e)"
+          size="small" :min="12" :max="200">
             <template #suffix>
               <span>PX</span>
             </template>
@@ -53,7 +55,7 @@
         <div class="panel-box-title theme-color">文字颜色</div>
         <div class="panel-box-content">
           <div v-for="(item, index) in COLOR" @click="changeColor(item)" :key="index" class="color-list" :style="{ backgroundColor: item }"></div>
-          <el-color-picker v-model="color"
+          <el-color-picker v-model="attrsParams.textColor"
           @change="(e:string)=> changeColor(e)"
           show-alpha :predefine="predefineColors" />
         </div>
@@ -61,11 +63,16 @@
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">描边</div>
         <div class="panel-box-content">
-          <el-input-number v-model="fontSize" size="small" :min="10" :max="100">
+          <el-input-number v-model="attrsParams.fontSizeStroke"
+          @change="(e:number)=> handleStroke(color, e)"
+          size="small" :min="1" :max="100">
             <template #suffix>
               <span>PX</span>
             </template>
           </el-input-number>
+          <el-color-picker v-model="attrsParams.strokeColor"
+          @change="(e:string)=> handleStroke(e, attrsParams.fontSizeStroke)"
+          show-alpha :predefine="predefineColors" />
         </div>
       </div>
       <div class="panel-box-list">
@@ -79,7 +86,7 @@
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">透明度</div>
         <div class="panel-box-content">
-          <el-slider v-model="opacity" show-input :min="0" :max="360" size="small" />
+          <el-slider v-model="attrsParams.opacity" show-input :min="0" :max="360" size="small" />
         </div>
       </div>
       <div class="panel-box-list">
@@ -93,7 +100,7 @@
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">旋转</div>
         <div class="panel-box-content">
-          <el-slider v-model="rotate" show-input :min="0" :max="360" size="small" />
+          <el-slider v-model="attrsParams.rotate" show-input :min="0" :max="360" size="small" />
         </div>
       </div>
     </div>
@@ -103,25 +110,41 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
 import { COLOR } from '@/config/color';
-import { IFlipKeys } from "@/types/attrs";
+import { IFlipKeys, IAttrsParams } from "@/types/attrs";
 import editorEvent from '@/hooks/editorEvent';
 import useAttrs from '@/hooks/attrs';
 const activeName = ref<'foundation' | 'mix'>('foundation');
-const { horizontal, changeColor } = useAttrs();
+const { horizontal, changeColor, handleStroke, handleFontSize } = useAttrs();
 const { selectData } = editorEvent();
+
+const initParams = (): IAttrsParams => {
+  return {
+    fontSize: 16,
+    opacity: 1,
+    rotate: 0,
+    fontSizeStroke: 1,
+    strokeColor: 'rgba(126, 200, 29, 1)',
+    textarea: '',
+    textColor: 'rgba(126, 200, 29, 1)',
+  }
+}
 
 watch(()=>selectData.value, (val:any) => {
   if (val && val.value) {
-    textarea.value = val.value.text || '';
+    attrsParams.value.textarea = val.value.text || '';
+    attrsParams.value.fontSizeStroke = val.value.strokeWidth;
+    attrsParams.value.fontSize = val.value.fontSize;
   } else {
-    textarea.value = '';
+    attrsParams.value = initParams();
   }
 })
 
+const attrsParams = ref<IAttrsParams>(initParams())
+
 // 文本
 const textarea = ref<string>('');
-// 字体大小
-const fontSize = ref(16);
+// 字体大小-描边
+const fontSizeStroke = ref<string>('16');
 // 透明度
 const opacity = ref(1);
 // 旋转
