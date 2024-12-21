@@ -41,9 +41,9 @@
         <div class="panel-box-text-attr">
           <!-- <span>字体大小：</span> -->
           <el-input-number v-model="attrsParams.fontSize"
-          @change="(e:number)=> handleFontSize(e)"
-          size="small" :min="12" :max="200">
-            <template #suffix>
+          :min="12" :max="200"
+          controls-position="right">
+            <template #prefix>
               <span>PX</span>
             </template>
           </el-input-number>
@@ -64,9 +64,10 @@
         <div class="panel-box-title theme-color">描边</div>
         <div class="panel-box-content">
           <el-input-number v-model="attrsParams.fontSizeStroke"
+          :min="1" :max="100"
           @change="(e:number)=> handleStroke(color, e)"
-          size="small" :min="1" :max="100">
-            <template #suffix>
+          controls-position="right">
+            <template #prefix>
               <span>PX</span>
             </template>
           </el-input-number>
@@ -86,12 +87,28 @@
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">透明度</div>
         <div class="panel-box-content">
-          <el-slider v-model="attrsParams.opacity" show-input :min="0" :max="360" size="small" />
+          <el-slider v-model="attrsParams.opacity"
+          show-input :min="0" :max="100" />
         </div>
       </div>
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">位置</div>
-        <div class="panel-box-content">456</div>
+        <div class="panel-box-content">
+          <el-input-number v-model="attrsParams.fontSizeStroke"
+          controls-position="right"
+          :min="1" :max="100">
+            <template #prefix>
+              <span>X</span>
+            </template>
+          </el-input-number>
+          <el-input-number v-model="attrsParams.fontSizeStroke"
+          controls-position="right"
+          :min="1" :max="100">
+            <template #prefix>
+              <span>Y</span>
+            </template>
+          </el-input-number>
+        </div>
       </div>
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">尺寸</div>
@@ -100,7 +117,7 @@
       <div class="panel-box-list">
         <div class="panel-box-title theme-color">旋转</div>
         <div class="panel-box-content">
-          <el-slider v-model="attrsParams.rotate" show-input :min="0" :max="360" size="small" />
+          <el-slider v-model="attrsParams.rotate" show-input :min="0" :max="360" />
         </div>
       </div>
     </div>
