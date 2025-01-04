@@ -33,13 +33,14 @@ export default function useSidebar() {
   };
 
   // 创建文字
-  const createText = () => {
+  const createText = (IText?: any) => {
     if (!workspace?.value) return;
     const text = new Text({
       editable: true,
       fill: randomColor(),
       text: '吉云设计',
       fontSize: 120,
+      ...IText,
     });
     workspace.value.add(text);
     text.move(getElementXY(text));
